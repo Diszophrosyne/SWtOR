@@ -3,12 +3,20 @@
 	const Discord = require("discord.js"),
 	      auth = require("./auth.json"),
 	      prefix = auth.prefixParse,
-	      client = new Discord.Client({autoReconnect: true});
-	var dbs = require(./teamDBs.json),
-	    nameTeam = function (str) {
-		//db.name = str;
-
-
+	      client = new Discord.Client({autoReconnect: true}),
+	      roles = ["Tank","DPS","Healer"],
+	      specs = ["Darkness/Kinetic Combat","Immortal/Defense","Shield Tech/Shield Specialist","Annihilation/Watchman","Carnage/Combat",
+			"Fury/Concentration","Marksman/Sharpshooter","Virulence/Dirty Fighting","Engineering/Saboteur","Lethality/Ruffian",
+			"Concealment/Scrapper","Vengeance/Vigilance","Rage/Focus","Arsenal/Gunnery","Innovative Ordinace/Assault Specialist",
+			"Lightning/Telekinetics","Madness/Balance","Deception/Infiltration","Hatred/Serenity","Pyrotech/Plasmatech",
+			"Advanced Prototype/Tactics","Corruption/Seer","Bodyguard/Combat Medic","Medicine/Sawbones"];
+	var dbs = require(./teamParses.json), //array of team objects
+	    dbsLookup = function (str) {
+		return dbs.filter(team => team.name === str);
+	    },
+	    nameTeam = function (str1, str2) {
+		var team = dbsLookup(str1);
+		str2 ? team && (team.name = str2) : dbs.push(new Object.name = str1);
 	    },
 	    displayTeam = function (name) {
 
