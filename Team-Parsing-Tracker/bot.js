@@ -2,6 +2,7 @@
 	"use strict";
 	const Discord = require("discord.js"),
 	      auth = require("./auth.json"),
+	      fse = require('fs-extra'),
 	      prefix = auth.prefixParse,
 	      client = new Discord.Client({autoReconnect: true}),
 	      roles = ["Tank","DPS","Healer"],
@@ -10,17 +11,25 @@
 			"Concealment/Scrapper","Vengeance/Vigilance","Rage/Focus","Arsenal/Gunnery","Innovative Ordinace/Assault Specialist",
 			"Lightning/Telekinetics","Madness/Balance","Deception/Infiltration","Hatred/Serenity","Pyrotech/Plasmatech",
 			"Advanced Prototype/Tactics","Corruption/Seer","Bodyguard/Combat Medic","Medicine/Sawbones"];
+
 	var dbs = require(./teamParses.json), //array of team objects
 	    dbsLookup = function (str) {
 		return dbs.filter(team => team.name === str);
 	    },
 	    nameTeam = function (str1, str2) {
-		var team = dbsLookup(str1);
-		str2 ? team && (team.name = str2) : dbs.push(new Object.name = str1);
+		var search = dbsLookup(str1), status = "";
+		if (search.length && str2) {
+	           search[0].name = `"${str2}"`;
+	           status = `Team name changed to ${str2}`;
+		} else {
+	           dbs.push({"name":`"${str1}"`});
+	           status = `Added new team ${str1}`;
+	        }		
+		return status;
 	    },
 	    displayTeam = function (name) {
-
-
+		var search = dbsLookup(name);
+		search.length ? 
 
 	    },
 	    listTeams = function () {
